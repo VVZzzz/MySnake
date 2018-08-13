@@ -15,8 +15,10 @@ public:
 	void Snake_init();
 	// const deque<Position> &get_posdeque() { return m_snake_posdeque; }
 	Position get_bodyfirst() {
-		if (m_snake_num > 0)
+		if (m_snake_num > 0) {
+			// if (m_snake_updown2left == 1) return m_snake_posdeque[2];
 			return m_snake_posdeque[1];
+		}
 		else
 			return Position(-1, -1);
 	}
@@ -25,7 +27,8 @@ public:
 	int get_length() { return m_snake_num; }
 	int get_direction() { return m_snake_runmode; }
 	int get_speed() { return m_snake_speed; }
-	const char get_headchar() { return *m_snake_phead; }
+	const string get_headchar() { return m_snake_phead; }
+	int get_updown2left() { return m_snake_updown2left; }
 	void Snake_move();
 	void Snake_changedirect(int mode);
 	void Snake_expand();
@@ -34,10 +37,11 @@ public:
 
 private:
 	deque<Position> m_snake_posdeque;
-	const char *m_snake_phead;  //snake头部
+	string m_snake_phead;  //snake头部
 	int m_snake_num;               //sanke身体部分0的个数
 	int m_snake_runmode;           //snake正在运行的状态 
 	int m_snake_speed;             //snake的运行速度
+	int m_snake_updown2left;	   //snake由上下转为向左,或者向左转为向上下的标志
 	Position m_snake_oldtail;      //sanke旧的尾部位置
 
 };

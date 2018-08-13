@@ -7,12 +7,13 @@ void Snake::Snake_init() {
 	int direction = rand() % 4;
 	Position init_pos(GKINT_AREAWIDTH / 2, GKINT_AREAHEIGHT / 2);
 	m_snake_runmode = direction;
-	m_snake_phead = &GSTR_HEAD[direction];
+	m_snake_phead = GSTR_HEAD[direction];
 	m_snake_speed = 1;
 	m_snake_num = 0;
 	m_snake_posdeque.resize(1);
 	m_snake_posdeque[0] = init_pos;
 	m_snake_oldtail = init_pos;
+	m_snake_updown2left = 0;
 }
 
 void Snake::Snake_move()
@@ -20,6 +21,7 @@ void Snake::Snake_move()
 	Position temp_headpos = m_snake_posdeque.front();
 	m_snake_oldtail = m_snake_posdeque.back();  //更新oldtailpos
 	m_snake_posdeque.pop_back();                //将尾部位置删去
+	
 	switch (m_snake_runmode)
 	{
 	case GKUNI_UPMOVE:
@@ -46,8 +48,16 @@ void Snake::Snake_changedirect(int mode)
 	if (mode == GKUNI_DOWNMOVE&&m_snake_runmode == GKUNI_UPMOVE) return;
 	if (mode == GKUNI_LEFTMOVE&&m_snake_runmode == GKUNI_RIGHTMOVE) return;
 	if (mode == GKUNI_RIGHTMOVE&&m_snake_runmode == GKUNI_LEFTMOVE) return;
+	m_snake_updown2left = 0;
+	if (mode == GKUNI_LEFTMOVE && m_snake_runmode != GKUNI_RIGHTMOVE) 
+		m_snake_updown2left = 1;
+	if (m_snake_runmode == GKUNI_LEFTMOVE && mode != GKUNI_UPMOVE) 
+		m_snake_updown2left = 2;
+	if (m_snake_runmode == GKUNI_LEFTMOVE && mode != GKUNI_DOWNMOVE) 
+		m_snake_updown2left = 3;
 	m_snake_runmode = mode;
-	m_snake_phead = &GSTR_HEAD[mode];
+	m_snake_phead = GSTR_HEAD[mode];
+
 }
 
 void Snake::Snake_expand() {
@@ -57,6 +67,12 @@ void Snake::Snake_expand() {
 
 bool Snake::Snake_ishit() {
 	Position head = m_snake_posdeque.front();
+	if (m_snake_updown2left == 1) {
+		head.m_posx -= 1;
+	}
+	else if (m_snake_updown2left == 0){
+		head.m_posx += 1;
+	}
 	if (head.m_posx <= 0 || head.m_posx >= GKINT_AREAWIDTH)
 		return true;
 	if (head.m_posy <= 0 || head.m_posy >= GKINT_AREAHEIGHT) 
@@ -70,6 +86,8 @@ bool Snake::Snake_ishit() {
 }
 
 bool Snake::Snake_meetfood(Position foodpos) {
-	return m_snake_posdeque.front() == foodpos;
+	Position temp = m_snake_posdeque.front();
+	return Position(temp.m_posx + 1,
+		temp.m_posy) == foodpos || temp == foodpos;
 }
 

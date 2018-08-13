@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <deque>
+#include <vector>
 #include <time.h>
 #include <conio.h>
 #include <Windows.h>
@@ -13,6 +14,7 @@ using std::string;
 using std::cout;
 using std::endl;
 using std::deque;
+using std::vector;
 
 //map macros
 const int GKINT_AREAWIDTH = 50;
@@ -23,11 +25,12 @@ const int GKINT_SCOREPOSX = GKINT_AREAWIDTH + 5;
 const int GKINT_SCOREPOSY = GKINT_AREAHEIGHT / 2 - 5;
 
 //snake
-//const char GKCHAR_HEADUP[] = "¡ü";
-//const char GKCHAR_HEADDOWN[] = "¡ý";
-//const char GKCHAR_HEADLEFT[] = "¡û";
-//const char GKCHAR_HEADRIGHT[] = "¡ú";
-const string GSTR_HEAD = "AV<>";
+const char GKCHAR_HEADUP[] = "¡ü";
+const char GKCHAR_HEADDOWN[] = "¡ý";
+const char GKCHAR_HEADLEFT[] = "¡û";
+const char GKCHAR_HEADRIGHT[] = "¡ú";
+//const string GSTR_HEAD = "AV<>";
+const vector<string> GSTR_HEAD = { "¡ü","¡ý","¡û","¡ú" };
 
 //game
 const unsigned GKUNI_UPMOVE = 0;

@@ -85,7 +85,20 @@ void Map::MapSnakeUpdate(Snake & snake, Position oldsnaketail, bool isExpand) {
 		std::cout << ' ';
 	}
 	Position head = snake.get_headpos();
-	Tool_GotoXY(head.m_posx, head.m_posy);
+	if (snake.get_updown2left() == 1)
+		Tool_GotoXY(head.m_posx - 1, head.m_posy);
+	else if (snake.get_updown2left() == 2) {
+		Tool_GotoXY(head.m_posx - 1, head.m_posy + 1);
+		cout << ' ';
+		Tool_GotoXY(head.m_posx, head.m_posy);
+	}
+	else if (snake.get_updown2left() == 3) {
+		Tool_GotoXY(head.m_posx - 1, head.m_posy - 1);
+		cout << ' ';
+		Tool_GotoXY(head.m_posx, head.m_posy);
+	}
+	else 
+		Tool_GotoXY(head.m_posx, head.m_posy);
 	std::cout << snake.get_headchar();
 	if (snake.get_length() > 0) {
 		Tool_GotoXY(snake.get_bodyfirst().m_posx,snake.get_bodyfirst().m_posy);
