@@ -1,7 +1,6 @@
+#pragma once
 #ifndef SNAKE_SNAKE_H_
 #define SNAKE_SNAKE_H_
-#pragma once
-
 #include <Windows.h>
 #include <deque>
 #include "snakemacros.h"
@@ -12,17 +11,27 @@ using std::deque;
 class Snake
 {
 public:
-	Snake() :m_snake_num(0), m_snake_runmode(0) { }
-	const deque<Position> &get_posdeque() { return m_snake_posdeque; }
-	Position get_headpos() { return m_snake_posdeque.front; }
+	Snake() = default;
+	void Snake_init();
+	// const deque<Position> &get_posdeque() { return m_snake_posdeque; }
+	Position get_bodyfirst() {
+		if (m_snake_num > 0)
+			return m_snake_posdeque[1];
+		else
+			return Position(-1, -1);
+	}
+	Position get_headpos() { return m_snake_posdeque.front(); }
 	Position get_tailpos() { return m_snake_posdeque.back(); }
 	int get_length() { return m_snake_num; }
 	int get_direction() { return m_snake_runmode; }
 	int get_speed() { return m_snake_speed; }
+	const char get_headchar() { return *m_snake_phead; }
 	void Snake_move();
 	void Snake_changedirect(int mode);
 	void Snake_expand();
 	bool Snake_ishit();
+	bool Snake_meetfood(Position foodpos);
+
 private:
 	deque<Position> m_snake_posdeque;
 	const char *m_snake_phead;  //snakeÍ·²¿

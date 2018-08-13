@@ -1,14 +1,12 @@
-#include <iostream>
-#include <string>
-#include <wchar.h>
-#include "map.h"
+#include "game.h"
 
 int main()
 {
-	Map map;
-	map.MapInit();
-	map.MapInforInit();
-	map.MapInforErase();
+	
+	Game mygame;
+	mygame.GameInit();
+	mygame.GamePlay();
+	
 	system("pause");
 	return 0;
 }

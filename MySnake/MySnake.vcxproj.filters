@@ -24,6 +24,15 @@
     <ClCompile Include="snake.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="food.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="snakemacros.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="map.h">

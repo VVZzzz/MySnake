@@ -2,6 +2,12 @@
 #ifndef SNAKE_MACROS_H_
 #define SNAKE_MACROS_H_
 
+#include <iostream>
+#include <deque>
+#include <time.h>
+#include <conio.h>
+#include <Windows.h>
+
 //此类用来管理Map区域内的信息
 using std::string;
 using std::cout;
@@ -17,11 +23,11 @@ const int GKINT_SCOREPOSX = GKINT_AREAWIDTH + 5;
 const int GKINT_SCOREPOSY = GKINT_AREAHEIGHT / 2 - 5;
 
 //snake
-const char GKCHAR_HEADUP[] = "↑";
-const char GKCHAR_HEADDOWN[] = "↓";
-const char GKCHAR_HEADLEFT[] = "←";
-const char GKCHAR_HEADRIGHT[] = "→";
-const string GSTR_HEAD = "↑↓←→";
+//const char GKCHAR_HEADUP[] = "↑";
+//const char GKCHAR_HEADDOWN[] = "↓";
+//const char GKCHAR_HEADLEFT[] = "←";
+//const char GKCHAR_HEADRIGHT[] = "→";
+const string GSTR_HEAD = "AV<>";
 
 //game
 const unsigned GKUNI_UPMOVE = 0;
@@ -42,6 +48,7 @@ Position &Position::operator=(Position &rhs)
 {
 	m_posx = rhs.m_posx;
 	m_posy = rhs.m_posy;
+	return *this;
 }
 
 inline 
@@ -50,17 +57,5 @@ bool operator==(Position &lhs, Position &rhs)
 	return (lhs.m_posx == rhs.m_posx) && (lhs.m_posy == rhs.m_posy);
 }
 
-void Tool_GotoXY(int x, int y)  //工具函数,将光标移动至XY
-{
-	COORD coord = { x, y };
-	/*COORD是Windows API中定义的一种结构，表示一个字符在控制台屏幕上的坐标。其定义为：
-
-	typedef struct _COORD {
-
-	SHORT X; // horizontal coordinate
-
-	SHORT Y; // vertical coordinate
-	} COORD;*/
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
+void Tool_GotoXY(int x, int y);  //工具函数,将光标移动至XY
 #endif // !SNAKE_MACROS_H_
